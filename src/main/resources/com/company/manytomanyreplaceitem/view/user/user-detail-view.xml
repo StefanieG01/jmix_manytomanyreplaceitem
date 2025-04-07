@@ -46,11 +46,11 @@
         <dataGrid id="projectsDataGrid" dataContainer="projectsDc" width="100%" height="100%">
             <actions>
                 <action id="addAction" type="list_add"/>
-                                <action id="editAction" type="list_edit">
-                                    <properties>
-                                        <property name="openMode" value="DIALOG"/>
-                                    </properties>
-                                </action>
+                <action id="editAction" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
                 <action id="excludeAction" type="list_exclude"/>
             </actions>
             <columns>
