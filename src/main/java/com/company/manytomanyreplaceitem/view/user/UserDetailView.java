@@ -1,7 +1,9 @@
 package com.company.manytomanyreplaceitem.view.user;
 
+import com.company.manytomanyreplaceitem.entity.Language;
 import com.company.manytomanyreplaceitem.entity.Project;
 import com.company.manytomanyreplaceitem.entity.User;
+import com.company.manytomanyreplaceitem.view.language.LanguageListView;
 import com.company.manytomanyreplaceitem.view.main.MainView;
 import com.company.manytomanyreplaceitem.view.project.ProjectListView;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -12,7 +14,10 @@ import io.jmix.core.DataManager;
 import io.jmix.core.EntityStates;
 import io.jmix.core.MessageTools;
 import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.combobox.EntityComboBox;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.model.CollectionContainer;
+import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.model.CollectionPropertyContainer;
 import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.view.*;
@@ -55,6 +60,12 @@ public class UserDetailView extends StandardDetailView<User>
     private DataManager dataManager;
     @ViewComponent
     private DataContext dataContext;
+    @ViewComponent
+    private CollectionLoader<Language> languagesDl;
+    @ViewComponent
+    private EntityComboBox<Language> languageField;
+    @ViewComponent
+    private CollectionContainer<Language> languagesDc;
 
     @Subscribe
     public void onInit(final InitEvent event)
@@ -126,4 +137,23 @@ public class UserDetailView extends StandardDetailView<User>
             projectsDc.replaceItem(project);
         }
     }
+
+    @Install(to = "languageField.entityLookup", subject = "afterCloseHandler")
+    private void languageFieldEntityLookupAfterCloseHandler(final DialogWindow.AfterCloseEvent<LanguageListView> afterCloseEvent)
+    {
+        // reload all items for dropdown --> there might be new entities/changed entities/deleted entities in lookup
+        languagesDl.load();
+    }
+
+    // this is how afterCloseHandler looks, if you add it with Jmix UI inspector panel
+    // I think before v 2.5 the class was automatically filled in (instead of <V>
+/*    @Install(to = "languageField.entityLookup", subject = "afterCloseHandler")
+    private void languageFieldEntityLookupAfterCloseHandler(final DialogWindow.AfterCloseEvent<V> afterCloseEvent)
+    {
+
+    }*/
+
+
+
+
 }

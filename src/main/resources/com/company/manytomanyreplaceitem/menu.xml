@@ -4,6 +4,8 @@
     <menu id="application" title="msg://com.company.manytomanyreplaceitem/menu.application.title" opened="true">
         <item view="User.list" title="msg://com.company.manytomanyreplaceitem.view.user/UserListView.title"/>
         <item view="Project.list" title="msg://com.company.manytomanyreplaceitem.view.project/projectListView.title"/>
+        <item view="Language_.list"
+              title="msg://com.company.manytomanyreplaceitem.view.language/languageListView.title"/>
     </menu>
 
 </menu-config>

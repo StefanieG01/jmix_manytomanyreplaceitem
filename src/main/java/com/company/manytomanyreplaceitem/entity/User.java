@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @JmixEntity
 @Entity
-@Table(name = "USER_", indexes = {@Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)})
+@Table(name = "USER_", indexes = {@Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true), @Index(name = "IDX_USER__LANGUAGE", columnList = "LANGUAGE_ID")})
 public class User implements JmixUserDetails, HasTimeZone
 {
 
@@ -28,9 +28,12 @@ public class User implements JmixUserDetails, HasTimeZone
     @JmixGeneratedValue
     private UUID id;
 
-    @JoinTable(name = "USER_PROJECT_LINK", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
+    @JoinTable(name = "USER_PROJECT_LINK", joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))
     @ManyToMany
     private List<Project> projects;
+    @JoinColumn(name = "LANGUAGE_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Language language;
     @Version
     @Column(name = "VERSION", nullable = false)
     private Integer version;
@@ -61,6 +64,10 @@ public class User implements JmixUserDetails, HasTimeZone
 
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
+
+    public Language getLanguage() {return language;}
+
+    public void setLanguage(Language language) {this.language = language;}
 
     public List<Project> getProjects() {return projects;}
 
