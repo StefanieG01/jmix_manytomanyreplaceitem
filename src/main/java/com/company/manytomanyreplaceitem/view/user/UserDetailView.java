@@ -141,19 +141,7 @@ public class UserDetailView extends StandardDetailView<User>
     @Install(to = "languageField.entityLookup", subject = "afterCloseHandler")
     private void languageFieldEntityLookupAfterCloseHandler(final DialogWindow.AfterCloseEvent<LanguageListView> afterCloseEvent)
     {
-        // reload all items for dropdown --> there might be new entities/changed entities/deleted entities in lookup
+        // reload all items for dropdown --> there might be new entities/changed entities in lookup
         languagesDl.load();
     }
-
-    // this is how afterCloseHandler looks, if you add it with Jmix UI inspector panel
-    // I think before v 2.5 the class was automatically filled in (instead of <V>
-/*    @Install(to = "languageField.entityLookup", subject = "afterCloseHandler")
-    private void languageFieldEntityLookupAfterCloseHandler(final DialogWindow.AfterCloseEvent<V> afterCloseEvent)
-    {
-
-    }*/
-
-
-
-
 }
